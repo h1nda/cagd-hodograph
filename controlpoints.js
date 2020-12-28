@@ -1,6 +1,6 @@
 let canvas = document.querySelector("#canvas");
 let canvas1 = document.querySelector("#hodograph-canvas");
-let ctx1 = canvas.getContext('2d');
+let ctx1 = canvas1.getContext('2d');
 let ctx = canvas.getContext('2d');
 let Points = [];
 const SEGMENTS = 100;
@@ -13,8 +13,8 @@ HodographControlPoints = (Points) => {
         return Points[0];
     }
     for (let i = 1; i < Points.length; i++) {
-        HodographCP.push({x: Points[i].x - Points[i-1].x,
-        y: Points[i].y - Points[i - 1].y});
+        HodographCP.push({x: Points[i].x - Points[i-1].x + 250,
+        y: Points[i].y - Points[i - 1].y + 250});
     }
     console.log(HodographCP);
     return HodographCP;
@@ -25,10 +25,11 @@ onLeftClick = (e) => {
    if (e.button !== 2) {
        return;
    }
+   let rect = canvas.getBoundingClientRect();
     let closest_index;
     for (let i = 0; i < Points.length; i++) {
-        let a = Points[i].x - e.offsetX;
-        let b = Points[i].y - e.offsetY;
+        let a = Points[i].x - ((e.clientX - rect.left) / (rect.right - rect.left) * canvas.width);
+        let b = Points[i].y - ((e.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height);
         let c = Math.hypot(a,b);
         if (c < 30) {
             closest_index = i;
@@ -37,9 +38,10 @@ onLeftClick = (e) => {
         }
     }
     onDrag = (e) => {
-        Points[closest_index].x = e.offsetX;
-        Points[closest_index].y = e.offsetY;
-        update();
+        Points[closest_index].x = (e.clientX - rect.left) / (rect.right - rect.left) * canvas.width;
+        Points[closest_index].y = (e.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height;
+        update(ctx,Points);
+    update(ctx1,HodographControlPoints(Points));
     }
     canvas.addEventListener("mousemove", onDrag);
     canvas.addEventListener("mouseup", e => {
@@ -85,7 +87,7 @@ compute = (Points) => {
     return curvePoints;
 }
 
-draw = (Points,color, context) => {
+draw = (Points,color,context) => {
     let curvePoints1 = compute(Points);
     // console.log(curvePoints);
     // console.log(curvePoints1)
@@ -100,19 +102,19 @@ draw = (Points,color, context) => {
     context.stroke();
     context.closePath();
 }
-const update = (context) => {
+const update = (context, Points1) => {
     context.clearRect(0, 0, canvas.width, canvas.height);
     // Draw the shape
     context.strokeStyle = "#000";
     context.beginPath();
-    Points.forEach((point, index, arr) => {
+    Points1.forEach((point, index, arr) => {
         if (arr.length > 1) {
 
             if (index == 0)
-            context.moveTo(point.x, point.y);
+                context.moveTo(point.x, point.y);
 
             if (index != arr.length - 1)
-            context.lineTo(arr[index + 1].x, arr[index + 1].y);
+                context.lineTo(arr[index + 1].x, arr[index + 1].y);
 
 
         }
@@ -121,7 +123,7 @@ const update = (context) => {
     context.stroke();
 
     // Draw the dots, this should be done last due to then they are above the path
-    Points.forEach((point, index, arr) => {
+    Points1.forEach((point, index, arr) => {
         context.beginPath();
         context.arc(point.x, point.y, 2, 0, 2 * Math.PI);
         context.fill();
@@ -147,9 +149,11 @@ onClick = (e) => {
 
     console.log(Points);
 
-    update(ctx);
-    update(ctx1);
+    update(ctx,Points);
+    update(ctx1,HodographControlPoints(Points));
 }
 canvas.addEventListener("click", onClick);
 
-update();
+update(ctx,Points);
+update(ctx1,HodographControlPoints(Points));
+
