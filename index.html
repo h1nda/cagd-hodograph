@@ -4,21 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Triangle</title>
+    <title>HODOGRAPH</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div id ="instructions">
+    <!-- <div id ="instructions">
         Left-Click on the red canvas to add Control Points. <br>
         To move a point, Right-Click and hold then drag to new coordinates.
+    </div> -->
+
+    <div id="text-div">
+        <span id= "bezier-text">Bézier Curve</span>
+        <span id="hodograph-text">Hodograph</span>
     </div>
-    <div id="div">
+    
+
+    <div id="canvas-div">
         <canvas id="canvas" width="500" height="500"></canvas>
         <canvas id="hodograph-canvas" width = "500" height="500"></canvas>
     </div>
 
-    <script src="controlpoints.js"></script>
+     <div id ="instructions">
+        Left-click to add Control Points. Hold down the right mouse button then drag to change the position of a CP. Press C to clear.
+    </div>
+
+    <script src="main.js"></script>
 </body>
 
 </html>

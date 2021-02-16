@@ -1,4 +1,36 @@
-#div {
+
+body {
+    background-color:#E9F5F8;
+}
+canvas {
+    background-color: #f2e6d9;
+    float: left;
+     position: relative;
+     margin: 5px;
+     border: 2px dotted #644B51;
+}
+div {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+}
+span {
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    margin: 175px;
+}
+#hodograph-canvas {
+    background-color: #dad9f2;
+}
+#text-div {
+    width: 1035px;
+    padding: 5px 0px;
+    margin: auto;
+}
+#instructions {
+    padding-top: 525px;
+    text-align: center;
+}
+#canvas-div {
     padding: 0;
     margin: auto;
     display: block;
@@ -11,18 +43,4 @@
     
     height: 510px;
     width: 1035px;
-    border: 3px solid #1dc934;
 } 
-#canvas {
-   float: left;
-    position: relative;
-    margin: 5px;
-    border: 3px solid red;
-}
-#hodograph-canvas {
-    float:left;
-    
-    position: relative;
-    margin: 5px;
-    border: 3px solid blue;
-}
