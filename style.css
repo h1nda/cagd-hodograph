@@ -5,15 +5,16 @@ body {
 canvas {
     background-color: #f2e6d9;
     float: left;
-     position: relative;
-     margin: 5px;
-     border: 2px dotted #644B51;
+    position: relative;
+    margin: 5px;
+    border: 2px dotted #644B51;
 }
 div {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
 }
 span {
+    font-size: large;
     text-transform: uppercase;
     letter-spacing: 5px;
     margin: 175px;
@@ -27,10 +28,11 @@ span {
     margin: auto;
 }
 #instructions {
-    padding-top: 525px;
+    padding-top: 575px;
     text-align: center;
 }
 #canvas-div {
+
     padding: 0;
     margin: auto;
     display: block;
@@ -41,6 +43,6 @@ span {
     left: 0;
     right: 0;
     
-    height: 510px;
-    width: 1035px;
+    height: 560px;
+    width: 1135px;
 } 
